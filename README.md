@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/saagie/whyat-server.svg?branch=master)](https://travis-ci.org/saagie/whyat-server)
 # Y@ Server
 
 Y@ (whyat) helps you to track your user’s action within your application and store it directly in the data source of your choice
