@@ -7,6 +7,7 @@ import org.apache.hadoop.fs.Path
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Repository
 import java.net.URI
+import javax.annotation.PostConstruct
 
 
 @Repository
@@ -23,6 +24,7 @@ class HdfsDao {
 
     var fs: FileSystem? = null
 
+    @PostConstruct
     fun init() {
         if (fs == null) {
             val hdfsUri = "hdfs://$hdfsIp:$hdfsPort"
@@ -49,18 +51,15 @@ class HdfsDao {
 
 
     fun appendExample(example: Example) {
-        this.init()
         val fileName = "test.csv"
         val hdfswritepath = Path(hdfsPath + "/" + fileName)
-        //Init output stream
         if (!fs!!.exists(hdfswritepath)) {
             val outputStream = fs!!.create(hdfswritepath)
-            outputStream.writeBytes("id;value\n")
+            outputStream.writeBytes(example.toCSVHeader())
             outputStream.close()
         }
         val outputStream = fs!!.append(hdfswritepath)
-        //Cassical output stream usage
-        outputStream.writeBytes("${example.id};${example.value}\n")
+        outputStream.writeBytes(example.toCSV())
         outputStream.close()
     }
 }
