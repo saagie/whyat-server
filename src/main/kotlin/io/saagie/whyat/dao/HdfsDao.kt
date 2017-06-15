@@ -7,6 +7,7 @@ import org.apache.hadoop.fs.Path
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Repository
 import java.net.URI
+import java.util.*
 import javax.annotation.PostConstruct
 
 
@@ -51,7 +52,7 @@ class HdfsDao {
 
 
     fun appendExample(example: Example) {
-        val fileName = "test.csv"
+        val fileName = this.getFilename()
         val hdfswritepath = Path(hdfsPath + "/" + fileName)
         if (!fs!!.exists(hdfswritepath)) {
             val outputStream = fs!!.create(hdfswritepath)
@@ -61,5 +62,10 @@ class HdfsDao {
         val outputStream = fs!!.append(hdfswritepath)
         outputStream.writeBytes(example.toCSV())
         outputStream.close()
+    }
+
+    fun getFilename(): String {
+        val cal = Calendar.getInstance()
+        return "${cal.get(Calendar.YEAR)}_${cal.get(Calendar.MONTH) + 1}_${cal.get(Calendar.DAY_OF_MONTH)}.csv"
     }
 }
