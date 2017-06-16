@@ -16,16 +16,20 @@
 package io.saagie.whyat.domain
 
 data class Event(
-        val date: String,
-        val type: String,
+        val applicationID: String,
+        val platformID: String,
+        val browser: BrowserInformation,
         val user: String,
-        val value: String) {
-
-    fun toCSV(): String {
-        return "$date;$type;$user;$value\n"
-    }
+        val timestamp: Long,
+        val uri: String,
+        val pageName: String,
+        val information: String?) {
 
     fun toCSVHeader(): String {
-        return "date;type;user;value\n"
+        return "applicationID;platformID;${browser.toCSVHeader()};user;timestamp;uri;pageName;information\n"
+    }
+
+    fun toCSV(): String {
+        return "$applicationID;$platformID;${browser.toCSV()};$user;$timestamp;$uri;$pageName;$information\n"
     }
 }
