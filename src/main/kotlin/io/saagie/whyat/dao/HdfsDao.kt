@@ -1,6 +1,6 @@
 package io.saagie.whyat.dao
 
-import io.saagie.whyat.domain.Example
+import io.saagie.whyat.domain.Event
 import org.apache.hadoop.conf.Configuration
 import org.apache.hadoop.fs.FileSystem
 import org.apache.hadoop.fs.Path
@@ -51,16 +51,16 @@ class HdfsDao {
     }
 
 
-    fun appendExample(example: Example) {
+    fun storeEvent(event: Event) {
         val fileName = this.getFilename()
         val hdfswritepath = Path(hdfsPath + "/" + fileName)
         if (!fs!!.exists(hdfswritepath)) {
             val outputStream = fs!!.create(hdfswritepath)
-            outputStream.writeBytes(example.toCSVHeader())
+            outputStream.writeBytes(event.toCSVHeader())
             outputStream.close()
         }
         val outputStream = fs!!.append(hdfswritepath)
-        outputStream.writeBytes(example.toCSV())
+        outputStream.writeBytes(event.toCSV())
         outputStream.close()
     }
 
