@@ -8,7 +8,7 @@ notifications:
   email: false
 before_install:
   - "mvn versions:set -DnewVersion=0.1.${TRAVIS_BUILD_NUMBER}"
-after_install:
+after_success:
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
   - "mvn docker:build"
   - docker push saagie/whyat-server
