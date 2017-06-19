@@ -125,10 +125,14 @@
                 <artifactId>docker-maven-plugin</artifactId>
                 <version>${docker-maven-plugin.version}</version>
                 <configuration>
-                    <imageName>${plugin.docker.imagePrefix}/${project.artifactId}:${project.version}</imageName>
+                    <imageName>${plugin.docker.imagePrefix}/${project.artifactId}</imageName>
                     <baseImage>${docker-maven-plugin.baseImage}</baseImage>
                     <entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint>
                     <!-- copy the service's jar file from target into the root directory of the image -->
+                    <imageTags>
+                        <imageTag>${project.version}</imageTag>
+                        <imageTag>latest</imageTag>
+                    </imageTags>
                     <resources>
                         <resource>
                             <targetPath>/target</targetPath>

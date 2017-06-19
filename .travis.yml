@@ -10,4 +10,5 @@ before_script:
   - "mvn versions:set -DnewVersion=0.1.${TRAVIS_BUILD_NUMBER}"
 after_script:
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-  - "mvn docker:build -DpushImage"
+  - "mvn docker:build"
+  - docker push saagie/whyat-server
