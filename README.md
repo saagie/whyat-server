@@ -44,6 +44,22 @@ If you want to use the Kotlin CLI, you can follow [this tutorial](https://kotlin
 mvn clean test
 ```
 
+## Docker images
+
+To generate docker images (two tags are generated : latest and project.version) : 
+
+```
+mvn docker:build
+```
+
+## Environment variables
+
+Before start the application or the docker image, you need to setup 3 env. variables : 
+
+* WHYAT_HDFS_IP : the IP or DNS-Name of the Namenode.
+* WHYAT_HDFS_PORT : The port of the Namenode (default is 8020).
+* WHYAT_PATH : The path you want to store CSV file in your datalake (if not exist, the application will create it. The directory or the parent should be writable by user "hdfs")
+ 
 ## Built With
 
 * [Maven](https://maven.apache.org/) - Dependency Management 
@@ -52,9 +68,20 @@ mvn clean test
 
 * **Guillaume Lours** - *Initial work* - [glours](https://github.com/glours)
 * **Jérôme Avoustin** - *Initial work* - [rehia](https://github.com/rehia)
+* **Pierre Leresteux** - *Kotlin/docker part* - [pierreLeresteux](https://github.com/pierreLeresteux)
 
 See also the list of [contributors](https://github.com/saagie/whyat-server/contributors) who participated in this project.
 
 ## License
 
 This project is licensed under the Apache Licence version 2.0 - see the [LICENSE](LICENSE) file for details
+
+#### Maven plugin
+
+When you create a new file (Kotlin/Java) in this project, don't forget to add the Licence header, or simply run
+
+```
+mvn licence:format
+```
+
+It will add the header for all source files.
