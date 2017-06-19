@@ -8,3 +8,5 @@ notifications:
   email: false
 before_script:
   - "mvn versions:set -DnewVersion=0.1.${TRAVIS_BUILD_NUMBER}"
+after_script:
+  - "mvn docker:build"
