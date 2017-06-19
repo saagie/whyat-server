@@ -42,7 +42,7 @@
         <hadoop-client.version>2.6.0</hadoop-client.version>
         <docker-maven-plugin.version>1.0.0</docker-maven-plugin.version>
         <docker-maven-plugin.baseImage>java:8-jre</docker-maven-plugin.baseImage>
-        <plugin.docker.imagePrefix>pierrecd</plugin.docker.imagePrefix>
+        <plugin.docker.imagePrefix>saagie</plugin.docker.imagePrefix>
 
     </properties>
 
