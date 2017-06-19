@@ -30,7 +30,7 @@ import javax.annotation.PostConstruct
 class HdfsDao {
 
     @Value("\${hdfs.url}")
-    var hdfsUrl = 0
+    var hdfsUrl = ""
 
     @Value("\${hdfs.path}")
     var hdfsPath = ""
