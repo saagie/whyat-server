@@ -56,8 +56,7 @@ mvn docker:build
 
 Before start the application or the docker image, you need to setup 3 env. variables : 
 
-* WHYAT_HDFS_IP : the IP or DNS-Name of the Namenode.
-* WHYAT_HDFS_PORT : The port of the Namenode (default is 8020).
+* WHYAT_HDFS_URL : the IP or DNS-Name of the Namenode + ":" + the port of the namenode (Default is 8020)
 * WHYAT_PATH : The path you want to store CSV file in your datalake (if not exist, the application will create it. The directory or the parent should be writable by user "hdfs")
  
 ## Built With

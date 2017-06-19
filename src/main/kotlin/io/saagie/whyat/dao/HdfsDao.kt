@@ -29,11 +29,8 @@ import javax.annotation.PostConstruct
 @Repository
 class HdfsDao {
 
-    @Value("\${hdfs.ip}")
-    var hdfsIp = ""
-
-    @Value("\${hdfs.port}")
-    var hdfsPort = 0
+    @Value("\${hdfs.url}")
+    var hdfsUrl = 0
 
     @Value("\${hdfs.path}")
     var hdfsPath = ""
@@ -43,7 +40,7 @@ class HdfsDao {
     @PostConstruct
     fun init() {
         if (fs == null) {
-            val hdfsUri = "hdfs://$hdfsIp:$hdfsPort"
+            val hdfsUri = "hdfs://$hdfsUrl"
             val conf = Configuration().apply {
                 // Set FileSystem URI
                 set("fs.defaultFS", hdfsUri)
