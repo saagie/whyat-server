@@ -9,6 +9,5 @@ notifications:
 before_script:
   - "mvn versions:set -DnewVersion=0.1.${TRAVIS_BUILD_NUMBER}"
 after_script:
-  - "mvn docker:build"
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-  - "mvn docker:push"
+  - "mvn docker:build -DpushImage"
