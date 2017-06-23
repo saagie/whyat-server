@@ -26,7 +26,7 @@ class EventService {
     @Autowired
     lateinit var hdfsDao: HdfsDao
 
-    fun recordEvent(event: Event): Event {
+    fun recordEvent(event: Event) {
         hdfsDao.storeEvent(event)
     }
 }
