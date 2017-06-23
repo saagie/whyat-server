@@ -28,6 +28,5 @@ class EventService {
 
     fun recordEvent(event: Event): Event {
         hdfsDao.storeEvent(event)
-        return event
     }
 }

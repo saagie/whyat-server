@@ -17,17 +17,16 @@ package io.saagie.whyat.controller
 
 import io.saagie.whyat.domain.Event
 import io.saagie.whyat.service.EventService
-import org.springframework.web.bind.annotation.CrossOrigin
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.http.HttpStatus
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @CrossOrigin
 class EventController(val eventService: EventService) {
 
     @PostMapping("/event")
-    fun recordEvent(@RequestBody event: Event): Event {
-        return eventService.recordEvent(event)
+    @ResponseStatus(HttpStatus.CREATED)
+    fun recordEvent(@RequestBody event: Event) {
+        eventService.recordEvent(event)
     }
 }
