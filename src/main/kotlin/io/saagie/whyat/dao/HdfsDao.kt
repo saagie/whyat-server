@@ -27,7 +27,7 @@ import javax.annotation.PostConstruct
 
 
 @Repository
-class HdfsDao {
+class HdfsDao : EventDao {
 
     @Value("\${hdfs.url}")
     var hdfsUrl = ""
@@ -62,10 +62,16 @@ class HdfsDao {
         }
     }
 
+    @Synchronized
+    override fun storeEvent(event: Event) {
+        val eventTypeFolderPath = Path(hdfsPath + "/" + event.applicationID + "/" + event.type)
+        if (!fs!!.exists(eventTypeFolderPath)) {
+            // Create new Directory
+            fs!!.mkdirs(eventTypeFolderPath)
+        }
 
-    fun storeEvent(event: Event) {
         val fileName = this.getFilename()
-        val hdfswritepath = Path(hdfsPath + "/" + fileName)
+        val hdfswritepath = Path(eventTypeFolderPath.toString() + "/" + fileName)
         if (!fs!!.exists(hdfswritepath)) {
             val outputStream = fs!!.create(hdfswritepath)
             outputStream.writeBytes(event.toCSVHeader())

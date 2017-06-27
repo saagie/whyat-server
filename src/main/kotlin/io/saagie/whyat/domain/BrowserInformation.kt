@@ -16,19 +16,17 @@
 package io.saagie.whyat.domain
 
 data class BrowserInformation(
-        val name: String,
-        val codename: String,
-        val version: String,
+        val appName: String,
+        val appCodeName: String,
+        val appVersion: String,
         val platform: String,
         val userAgent: String) {
 
     fun toCSVHeader(): String {
-        return "name;codename;version;platform;user-agent"
+        return "appName;appCodeName;version;platform;user-agent"
     }
 
     fun toCSV(): String {
-        return "$name;$codename;$version;$platform;$userAgent"
+        return "$appName;$appCodeName;$appVersion;$platform;$userAgent"
     }
-
-
 }

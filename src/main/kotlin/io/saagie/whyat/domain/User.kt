@@ -13,25 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.saagie.whyat.controller
+package io.saagie.whyat.domain
 
-import io.saagie.whyat.domain.Event
-import io.saagie.whyat.service.EventService
-import org.springframework.http.HttpStatus
-import org.springframework.web.bind.annotation.*
+data class User(
+        val id: String) {
 
-@RestController
-@CrossOrigin
-class EventController(val eventService: EventService) {
-
-    @PostMapping("/event")
-    @ResponseStatus(HttpStatus.CREATED)
-    fun recordEvent(@RequestBody event: Event) {
-        eventService.recordEvent(event)
+    fun toCSVHeader(): String {
+        return "userID"
     }
 
-    @RequestMapping("/")
-    fun index(): String {
-        return "Status : OK!"
+    fun toCSV(): String {
+        return "$id"
     }
 }

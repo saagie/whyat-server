@@ -15,21 +15,30 @@
  */
 package io.saagie.whyat.domain
 
-data class Event(
-        val applicationID: String?,
-        val platformID: String?,
-        val browser: BrowserInformation,
-        val user: User,
-        var type: String,
-        val timestamp: Long,
-        val uri: String,
-        var payload: Payload) {
+import com.fasterxml.jackson.annotation.JsonAnyGetter
+import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonIgnore
+import java.util.HashMap
+
+class Payload {
+    @JsonIgnore
+    private val properties = HashMap<String, Any>()
+
+    @JsonAnyGetter
+    fun getProperties(): Map<String, Any> {
+        return this.properties
+    }
+
+    @JsonAnySetter
+    fun setProperty(name: String, value: Any) {
+        this.properties.put(name, value)
+    }
 
     fun toCSVHeader(): String {
-        return "applicationID;platformID;${browser.toCSVHeader()};${user.toCSVHeader()};timestamp;uri;${payload.toCSVHeader()}\n"
+        return this.properties.keys.joinToString(";")
     }
 
     fun toCSV(): String {
-        return "$applicationID;$platformID;${browser.toCSV()};${user.toCSV()};$timestamp;$uri;${payload.toCSV()}\n"
+        return this.properties.values.joinToString(";")
     }
 }
