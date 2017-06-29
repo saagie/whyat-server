@@ -26,10 +26,14 @@ data class Event(
         var payload: Payload) {
 
     fun toCSVHeader(): String {
-        return "applicationID;platformID;${browser.toCSVHeader()};${user.toCSVHeader()};timestamp;uri;${payload.toCSVHeader()}\n"
+        return "applicationID,platformID,${browser.toCSVHeader()},${user.toCSVHeader()},type,timestamp,uri,${payload.toCSVHeader()}\n"
     }
 
     fun toCSV(): String {
-        return "$applicationID;$platformID;${browser.toCSV()};${user.toCSV()};$timestamp;$uri;${payload.toCSV()}\n"
+        return "$applicationID,$platformID,${browser.toCSV()},${user.toCSV()},$type,$timestamp,${escape(uri)},${payload.toCSV()}\n"
+    }
+
+    fun escape(original: String): String {
+        return original.replace(',', ';')
     }
 }

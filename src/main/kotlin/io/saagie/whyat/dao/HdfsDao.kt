@@ -22,6 +22,7 @@ import org.apache.hadoop.fs.Path
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Repository
 import java.net.URI
+import java.text.SimpleDateFormat
 import java.util.*
 import javax.annotation.PostConstruct
 
@@ -83,7 +84,7 @@ class HdfsDao : EventDao {
     }
 
     fun getFilename(): String {
-        val cal = Calendar.getInstance()
-        return "${cal.get(Calendar.YEAR)}_${cal.get(Calendar.MONTH) + 1}_${cal.get(Calendar.DAY_OF_MONTH)}.csv"
+        val formattedDate = SimpleDateFormat("yyyy_MM_dd").format(Date());
+        return "$formattedDate.csvh"
     }
 }

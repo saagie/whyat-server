@@ -23,10 +23,14 @@ data class BrowserInformation(
         val userAgent: String) {
 
     fun toCSVHeader(): String {
-        return "appName;appCodeName;version;platform;user-agent"
+        return "appName,appCodeName,version,platform,user-agent"
     }
 
     fun toCSV(): String {
-        return "$appName;$appCodeName;$appVersion;$platform;$userAgent"
+        return "$appName,${escape(appCodeName)},${escape(appVersion)},${escape(platform)},${escape(userAgent)}"
+    }
+
+    fun escape(original: String): String {
+        return original.replace(',', ';')
     }
 }

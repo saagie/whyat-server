@@ -18,6 +18,7 @@ package io.saagie.whyat.domain
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonIgnore
+import jdk.nashorn.internal.objects.NativeArray.map
 import java.util.HashMap
 
 class Payload {
@@ -35,10 +36,14 @@ class Payload {
     }
 
     fun toCSVHeader(): String {
-        return this.properties.keys.joinToString(";")
+        return this.properties.keys.joinToString(",")
     }
 
     fun toCSV(): String {
-        return this.properties.values.joinToString(";")
+        return this.properties.values.map { value -> escape(value.toString()) }.joinToString(",")
+    }
+
+    fun escape(original: String): String {
+        return original.replace(',', ';')
     }
 }
