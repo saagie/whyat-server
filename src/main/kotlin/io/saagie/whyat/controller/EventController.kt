@@ -21,7 +21,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = arrayOf("*"))
 class EventController(val eventService: EventService) {
 
     @PostMapping("/event")
@@ -30,8 +30,8 @@ class EventController(val eventService: EventService) {
         eventService.recordEvent(event)
     }
 
-    @RequestMapping("/")
-    fun index(): String {
+    @GetMapping("/status")
+    fun status(): String {
         return "Status : OK!"
     }
 }
