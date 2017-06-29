@@ -15,13 +15,11 @@
  */
 package io.saagie.whyat.dao
 
-import org.amshove.kluent.shouldEndWith
-import org.amshove.kluent.shouldEqualTo
+import org.amshove.kluent.shouldMatch
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
-import java.util.*
 
 internal class HdfsDaoTest : Spek({
 
@@ -29,26 +27,9 @@ internal class HdfsDaoTest : Spek({
         val hdfsDao = HdfsDao()
         on("getFileName") {
             val fileName = hdfsDao.getFilename()
-            it("should return a filename ends with a .csv") {
-                fileName shouldEndWith ".csv"
-            }
-
-            it("should return a filename with 2 \"_\"") {
-                (fileName.split("_").size - 1) shouldEqualTo 2
-            }
-
-            it("should return a filename depends on the day") {
-                val year = fileName.substring(0, fileName.indexOf("_"))
-                val month = fileName.substring(fileName.indexOf("_") + 1, fileName.lastIndexOf("_"))
-                val day = fileName.substring(fileName.lastIndexOf("_") + 1, fileName.indexOf(".csv"))
-                val fileDate = Calendar.getInstance()
-                fileDate.set(year.toInt(), month.toInt() - 1, day.toInt())
-                val date = Calendar.getInstance()
-                date.get(Calendar.YEAR) shouldEqualTo fileDate.get(Calendar.YEAR)
-                date.get(Calendar.MONTH) shouldEqualTo fileDate.get(Calendar.MONTH)
-                date.get(Calendar.DAY_OF_MONTH) shouldEqualTo fileDate.get(Calendar.DAY_OF_MONTH)
+            it("should return a filename with format yyyy_MM_dd.csvh") {
+                fileName shouldMatch Regex("\\d{4}_\\d{2}_\\d{2}.csvh")
             }
         }
-
     }
 })
