@@ -15,6 +15,11 @@
  */
 package io.saagie.whyat.domain
 
+import java.time.LocalDateTime
+import java.time.Instant
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+
 data class Event(
         val applicationID: String?,
         val platformID: String?,
@@ -22,15 +27,16 @@ data class Event(
         val user: User,
         var type: String,
         val timestamp: Long,
+        val recordDate: LocalDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(timestamp), ZoneId.systemDefault()),
         val uri: String,
         var payload: Payload) {
 
     fun toCSVHeader(): String {
-        return "applicationID,platformID,${browser.toCSVHeader()},${user.toCSVHeader()},type,timestamp,uri,${payload.toCSVHeader()}\n"
+        return "applicationID,platformID,${browser.toCSVHeader()},${user.toCSVHeader()},type,timestamp,recordDate,uri,${payload.toCSVHeader()}\n"
     }
 
     fun toCSV(): String {
-        return "$applicationID,$platformID,${browser.toCSV()},${user.toCSV()},$type,$timestamp,${escape(uri)},${payload.toCSV()}\n"
+        return "$applicationID,$platformID,${browser.toCSV()},${user.toCSV()},$type,$timestamp,${recordDate.format(DateTimeFormatter.ISO_DATE_TIME)},${escape(uri)},${payload.toCSV()}\n"
     }
 
     fun escape(original: String): String {

@@ -23,6 +23,8 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Repository
 import java.net.URI
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.*
 import javax.annotation.PostConstruct
 
@@ -84,7 +86,7 @@ class HdfsDao : EventDao {
     }
 
     fun getFilename(): String {
-        val formattedDate = SimpleDateFormat("yyyy_MM_dd").format(Date());
+        val formattedDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy_MM_dd"));
         return "$formattedDate.csvh"
     }
 }
