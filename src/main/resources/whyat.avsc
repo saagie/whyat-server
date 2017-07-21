@@ -1,0 +1,45 @@
+{
+  "type":"record",
+  "name" : "event",
+  "namespace" : "io.saagie.whyat",
+  "fields" : [ {
+    "name" : "recordDate",
+    "type" : "string"
+  }, {
+    "name" : "platformID",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "applicationID",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "type",
+    "type" : "string"
+  }, {
+    "name" : "uri",
+    "type" : "string"
+  }, {
+    "name" : "timestamp",
+    "type" : "long"
+  }, {
+    "name" : "userID",
+    "type" : "string"
+  }, {
+    "name" : "userAgent",
+    "type" : "string"
+  }, {
+    "name" : "appCodeName",
+    "type" : "string"
+  }, {
+    "name" : "version",
+    "type" : "string"
+  }, {
+    "name" : "appName",
+    "type" : "string"
+  }, {
+    "name" : "platform",
+    "type" : "string"
+  }, {
+    "name" : "payload",
+    "type" : [ "null", "string" ]
+  } ]
+}

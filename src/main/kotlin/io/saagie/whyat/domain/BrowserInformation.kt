@@ -33,4 +33,14 @@ data class BrowserInformation(
     fun escape(original: String): String {
         return original.replace(',', ';')
     }
+
+    fun toMap(): Map<String, List<String>> {
+        return hashMapOf(
+                "appName" to listOf("string"),
+                "appCodeName" to listOf("string"),
+                "version" to listOf("string"),
+                "platform" to listOf("string"),
+                "userAgent" to listOf("string")
+        )
+    }
 }

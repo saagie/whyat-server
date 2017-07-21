@@ -23,7 +23,7 @@ import org.jetbrains.spek.api.dsl.on
 
 internal class HdfsDaoTest : Spek({
 
-    describe("in a context of a hdfsDao") {
+    describe("in a context of a eventDao") {
         val hdfsDao = HdfsDao()
         on("getFileName") {
             val fileName = hdfsDao.getFilename()

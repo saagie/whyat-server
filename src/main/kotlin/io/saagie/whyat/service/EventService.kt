@@ -15,7 +15,7 @@
  */
 package io.saagie.whyat.service
 
-import io.saagie.whyat.dao.HdfsDao
+import io.saagie.whyat.dao.EventDao
 import io.saagie.whyat.domain.Event
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -24,9 +24,9 @@ import org.springframework.stereotype.Service
 class EventService {
 
     @Autowired
-    lateinit var hdfsDao: HdfsDao
+    lateinit var eventDao: EventDao
 
     fun recordEvent(event: Event) {
-        hdfsDao.storeEvent(event)
+        eventDao.storeEvent(event)
     }
 }
