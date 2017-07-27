@@ -25,8 +25,4 @@ data class User(
     fun toCSV(): String {
         return "$id"
     }
-
-    fun toMap(): Map<String, List<String>> {
-        return hashMapOf("userID" to listOf("string"))
-    }
 }

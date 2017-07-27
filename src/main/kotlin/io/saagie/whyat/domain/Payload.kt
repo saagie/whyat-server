@@ -47,10 +47,6 @@ class Payload {
         return original.replace(',', ';')
     }
 
-    fun toMap(): Map<String, List<String>> {
-        return hashMapOf("payload" to listOf("null", "string"))
-    }
-
     fun toJSON() : String {
         return ObjectMapper().writeValueAsString(this.properties)
     }

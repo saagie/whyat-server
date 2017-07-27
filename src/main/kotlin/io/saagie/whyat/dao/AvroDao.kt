@@ -81,6 +81,18 @@ class AvroDao : EventDao {
         }
     }
 
+    @Synchronized
+    fun storeEvents(events: List<Event>) {
+        val dataFileWriter = prepareDataFileWriter()
+        try {
+            events.forEach { event ->
+                dataFileWriter.append(avroRecord(event, schema!!))
+            }
+        } finally {
+            dataFileWriter.close()
+        }
+    }
+
     private fun prepareDataFileWriter(): DataFileWriter<GenericRecord> {
         val dataWriter = GenericDatumWriter<GenericRecord>(schema)
         val dataFileWriter = DataFileWriter(dataWriter)

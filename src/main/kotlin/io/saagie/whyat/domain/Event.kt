@@ -39,21 +39,6 @@ data class Event(
         return "$applicationID,$platformID,${browser.toCSV()},${user.toCSV()},$type,$timestamp,${recordDate.format(DateTimeFormatter.ISO_DATE_TIME)},${escape(uri)},${payload.toCSV()}\n"
     }
 
-    fun toMap(): Map<String, List<String>> {
-        return hashMapOf(
-                "applicationID" to listOf("null", "string"),
-                "platformID" to listOf("null", "string"),
-                "type" to listOf("string"),
-                "timestamp" to listOf("long"),
-                "recordDate" to listOf("string"),
-                "uri" to listOf("string")
-        )
-                .plus(user.toMap())
-                .plus(browser.toMap())
-                .plus(payload.toMap())
-
-    }
-
     fun escape(original: String): String {
         return original.replace(',', ';')
     }
