@@ -73,23 +73,15 @@ class AvroDao : EventDao {
 
     @Synchronized
     override fun storeEvent(event: Event) {
-        val dataFileWriter = prepareDataFileWriter()
-        try {
-            dataFileWriter.append(avroRecord(event, schema!!))
-        } finally {
-            dataFileWriter.close()
-        }
+        prepareDataFileWriter().use { writer -> writer.append(avroRecord(event, schema!!))}
     }
 
     @Synchronized
     fun storeEvents(events: List<Event>) {
-        val dataFileWriter = prepareDataFileWriter()
-        try {
+        prepareDataFileWriter().use {writer ->
             events.forEach { event ->
-                dataFileWriter.append(avroRecord(event, schema!!))
+                writer.append(avroRecord(event, schema!!))
             }
-        } finally {
-            dataFileWriter.close()
         }
     }
 
@@ -104,9 +96,8 @@ class AvroDao : EventDao {
 
         if (mustAppendToFile) {
             return dataFileWriter.appendTo(FsInput(dataFilePath, configuration), dataFileOutputStream)
-        } else {
-            return dataFileWriter.create(schema, dataFileOutputStream)
         }
+        return dataFileWriter.create(schema, dataFileOutputStream)
     }
 
     private fun createSchema() {
