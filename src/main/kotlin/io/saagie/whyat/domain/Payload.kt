@@ -18,7 +18,7 @@ package io.saagie.whyat.domain
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonIgnore
-import jdk.nashorn.internal.objects.NativeArray.map
+import com.fasterxml.jackson.databind.ObjectMapper
 import java.util.HashMap
 
 class Payload {
@@ -45,5 +45,9 @@ class Payload {
 
     fun escape(original: String): String {
         return original.replace(',', ';')
+    }
+
+    fun toJSON() : String {
+        return ObjectMapper().writeValueAsString(this.properties)
     }
 }

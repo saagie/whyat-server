@@ -28,6 +28,9 @@
     </parent>
 
     <properties>
+        <java.version>1.8</java.version>
+        <kotlin.version>1.1.2-5</kotlin.version>
+
         <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -36,13 +39,21 @@
         <project.inceptionYear>2017</project.inceptionYear>
         <project.name>Saagie Client</project.name>
         <project.organization.email>contact@saagie.com</project.organization.email>
-        <java.version>1.8</java.version>
-        <kotlin.version>1.1.2-5</kotlin.version>
+
+
+        <!-- libraries versions -->
         <jackson-module-kotlin.version>2.8.7</jackson-module-kotlin.version>
         <hadoop-client.version>2.6.0</hadoop-client.version>
+        <avro.version>1.8.2</avro.version>
+        <rxkotlin.version>2.1.0</rxkotlin.version>
+        <rxjava.version>2.1.2</rxjava.version>
+
+        <!-- Docket libraries versions -->
+        <plugin.docker.imagePrefix>saagie</plugin.docker.imagePrefix>
         <docker-maven-plugin.version>1.0.0</docker-maven-plugin.version>
         <docker-maven-plugin.baseImage>java:8-jre</docker-maven-plugin.baseImage>
-        <plugin.docker.imagePrefix>saagie</plugin.docker.imagePrefix>
+
+        <!-- Test libraries versions -->
         <junit.jupiter.version>5.0.0-M4</junit.jupiter.version>
         <junit.vintage.version>4.12.0-M4</junit.vintage.version>
         <junit.platform.version>1.0.0-M4</junit.platform.version>
@@ -57,25 +68,30 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-stdlib-jre8</artifactId>
             <version>${kotlin.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-reflect</artifactId>
             <version>${kotlin.version}</version>
         </dependency>
+
         <dependency>
             <groupId>com.fasterxml.jackson.module</groupId>
             <artifactId>jackson-module-kotlin</artifactId>
             <version>${jackson-module-kotlin.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-client</artifactId>
@@ -91,6 +107,32 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
+        <dependency>
+            <groupId>org.apache.avro</groupId>
+            <artifactId>avro</artifactId>
+            <version>${avro.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.avro</groupId>
+            <artifactId>avro-mapred</artifactId>
+            <version>${avro.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.reactivex.rxjava2</groupId>
+            <artifactId>rxkotlin</artifactId>
+            <version>${rxkotlin.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.reactivex.rxjava2</groupId>
+            <artifactId>rxjava</artifactId>
+            <version>${rxjava.version}</version>
+        </dependency>
+
+        <!-- Test dependencies -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -142,6 +184,7 @@
             <version>${kluent.version}</version>
             <scope>test</scope>
         </dependency>
+
     </dependencies>
     <repositories>
         <repository>

@@ -29,7 +29,7 @@ import java.util.*
 import javax.annotation.PostConstruct
 
 
-@Repository
+// @Repository
 class HdfsDao : EventDao {
 
     @Value("\${hdfs.url}")
