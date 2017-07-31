@@ -27,8 +27,8 @@ import javax.annotation.PostConstruct
 import javax.annotation.PreDestroy
 
 
-@Repository
-@Primary
+// @Repository
+// @Primary
 class BufferedAvroDao(private val avroDao: AvroDao) : EventDao {
 
     @Value("\${avro.maxBatchSize}")

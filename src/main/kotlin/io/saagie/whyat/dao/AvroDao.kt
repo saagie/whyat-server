@@ -34,7 +34,7 @@ import org.apache.avro.mapred.FsInput
 import org.apache.hadoop.fs.FSDataOutputStream
 import java.io.File
 
-@Repository
+// @Repository
 class AvroDao : EventDao {
 
     @Value("\${hdfs.url}")
