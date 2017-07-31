@@ -19,16 +19,12 @@ import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import io.saagie.whyat.domain.Event
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.context.annotation.Primary
-import org.springframework.stereotype.Repository
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 import javax.annotation.PostConstruct
 import javax.annotation.PreDestroy
 
 
-// @Repository
-// @Primary
 class BufferedAvroDao(private val avroDao: AvroDao) : EventDao {
 
     @Value("\${avro.maxBatchSize}")

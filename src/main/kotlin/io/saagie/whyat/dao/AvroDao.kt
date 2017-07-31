@@ -21,8 +21,6 @@ import org.apache.avro.file.CodecFactory
 import org.apache.hadoop.conf.Configuration
 import org.apache.hadoop.fs.FileSystem
 import org.apache.hadoop.fs.Path
-import org.springframework.beans.factory.annotation.Value
-import org.springframework.stereotype.Repository
 import java.net.URI
 import java.time.format.DateTimeFormatter
 import javax.annotation.PostConstruct
@@ -34,15 +32,10 @@ import org.apache.avro.mapred.FsInput
 import org.apache.hadoop.fs.FSDataOutputStream
 import java.io.File
 
-// @Repository
-class AvroDao : EventDao {
 
-    @Value("\${hdfs.url}")
-    var hdfsUrl = ""
-
-    @Value("\${hdfs.path}")
-    var hdfsPath = ""
-
+class AvroDao(
+        private val hdfsHost: String,
+        private val hdfsPath: String) : EventDao {
     var fs: FileSystem? = null
 
     var configuration = Configuration()
@@ -52,7 +45,7 @@ class AvroDao : EventDao {
     @PostConstruct
     fun init() {
         if (fs == null) {
-            val hdfsUri = "hdfs://$hdfsUrl"
+            val hdfsUri = "hdfs://$hdfsHost"
             configuration = configuration.apply {
                 // Set FileSystem URI
                 set("fs.defaultFS", hdfsUri)

@@ -24,7 +24,7 @@ import org.jetbrains.spek.api.dsl.on
 internal class HdfsDaoTest : Spek({
 
     describe("in a context of a eventDao") {
-        val hdfsDao = HdfsDao()
+        val hdfsDao = HdfsDao("localhost:8020", "/test/hdfs")
         on("getFileName") {
             val fileName = hdfsDao.getFilename()
             it("should return a filename with format yyyy_MM_dd.csvh") {

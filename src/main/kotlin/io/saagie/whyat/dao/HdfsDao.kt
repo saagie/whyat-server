@@ -19,31 +19,22 @@ import io.saagie.whyat.domain.Event
 import org.apache.hadoop.conf.Configuration
 import org.apache.hadoop.fs.FileSystem
 import org.apache.hadoop.fs.Path
-import org.springframework.beans.factory.annotation.Value
-import org.springframework.stereotype.Repository
 import java.net.URI
-import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
-import java.util.*
 import javax.annotation.PostConstruct
 
 
-// @Repository
-class HdfsDao : EventDao {
-
-    @Value("\${hdfs.url}")
-    var hdfsUrl = ""
-
-    @Value("\${hdfs.path}")
-    var hdfsPath = ""
-
+class HdfsDao(
+        private val hdfsHost: String,
+        private val hdfsPath: String
+) : EventDao {
     var fs: FileSystem? = null
 
     @PostConstruct
     fun init() {
         if (fs == null) {
-            val hdfsUri = "hdfs://$hdfsUrl"
+            val hdfsUri = "hdfs://$hdfsHost"
             val conf = Configuration().apply {
                 // Set FileSystem URI
                 set("fs.defaultFS", hdfsUri)

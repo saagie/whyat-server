@@ -21,10 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class EventService {
-
-    @Autowired
-    lateinit var eventDao: EventDao
+class EventService(val eventDao: EventDao) {
 
     fun recordEvent(event: Event) {
         eventDao.storeEvent(event)
