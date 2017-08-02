@@ -15,21 +15,14 @@
  */
 package io.saagie.whyat.dao
 
-import org.amshove.kluent.shouldMatch
-import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.describe
-import org.jetbrains.spek.api.dsl.it
-import org.jetbrains.spek.api.dsl.on
+import io.saagie.whyat.domain.Event
+import org.jongo.*
 
-internal class HdfsDaoTest : Spek({
+class MongoDao(private val jongo: Jongo) : EventDao {
 
-    describe("in a context of a eventDao") {
-        val hdfsDao = HdfsDao("localhost:8020", "/test/hdfs")
-        on("getFileName") {
-            val fileName = hdfsDao.getFilename()
-            it("should return a filename with format yyyy_MM_dd.csvh") {
-                fileName shouldMatch Regex("\\d{4}_\\d{2}_\\d{2}.csvh")
-            }
-        }
+    val whyatCollection: MongoCollection = jongo.getCollection("events")
+
+    override fun storeEvent(event: Event) {
+        whyatCollection.insert(event)
     }
-})
+}
