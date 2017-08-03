@@ -99,7 +99,7 @@ class AvroDao(
         fs!!.copyFromLocalFile(schemaTemplatePath, schemaFilePath)
     }
 
-    private fun schemaTemplatePath() = this.javaClass.classLoader.getResource("whyat.avsc").path
+    private fun schemaTemplatePath() = "./target/classes/whyat.avsc"
 
     private fun getSchemaFilePath(): Path {
         return Path(hdfsPath + "/whyat.avsc")

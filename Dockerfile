@@ -6,4 +6,5 @@ ENTRYPOINT ["/usr/bin/java", "-jar", "/usr/share/whyat/whyat-server-0.1.0.jar"]
 EXPOSE 8080
 
 # Add the service itself
+ADD target/classes/whyat.avsc /target/classes/
 ADD target/whyat-server-0.1.0.jar /usr/share/whyat/whyat-server-0.1.0.jar
