@@ -15,8 +15,13 @@
  */
 package io.saagie.whyat.config
 
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
+import com.mongodb.MongoClient
+import com.mongodb.MongoCredential
+import com.mongodb.ServerAddress
 import io.saagie.whyat.dao.*
 import org.jongo.Jongo
+import org.jongo.marshall.jackson.JacksonMapper
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -59,5 +64,35 @@ class EventDaoConfiguration(
         return bufferedDao
     }
 
-    private fun mongoDao() = MongoDao(context.getBean(Jongo::class.java))
+    private fun mongoDao(): MongoDao {
+        val properties = MongoProperties(this.environment)
+        return MongoDao(jongo(mongoClient(properties), properties.database()))
+    }
+
+    private fun jongo(mongo: MongoClient, databaseName: String): Jongo {
+        val database = mongo.getDB(databaseName)
+        val mapper = JacksonMapper.Builder()
+                .registerModule(JavaTimeModule())
+                .build()
+        return Jongo(database, mapper)
+    }
+
+    private fun mongoClient(properties: MongoProperties) : MongoClient =
+            MongoClient(properties.serverAddress(), properties.credentials())
+
+    private class MongoProperties(environment: Environment) {
+        var prefix = "mongodb."
+        var host = environment.getProperty(prefix + "host")
+        var port = environment.getProperty(prefix + "port").toInt()
+        var username = environment.getProperty(prefix + "username")
+        var password = environment.getProperty(prefix + "password")
+        var database = environment.getProperty(prefix + "database")
+
+        fun serverAddress() : ServerAddress = ServerAddress(host, port)
+
+        fun credentials() : List<MongoCredential> =
+                listOf(MongoCredential.createCredential(this.username, this.database, this.password.toCharArray()))
+
+        fun database() : String = this.database
+    }
 }
