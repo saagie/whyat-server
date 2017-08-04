@@ -30,6 +30,8 @@ import org.apache.avro.generic.GenericDatumWriter
 import org.apache.avro.generic.GenericData
 import org.apache.avro.mapred.FsInput
 import org.apache.hadoop.fs.FSDataOutputStream
+import org.apache.hadoop.io.IOUtils
+import org.springframework.core.io.ClassPathResource
 import java.io.File
 
 
@@ -94,19 +96,19 @@ class AvroDao(
     }
 
     private fun createSchema() {
-        val schemaFilePath = getSchemaFilePath()
-        val schemaTemplatePath = Path(schemaTemplatePath())
-        fs!!.copyFromLocalFile(schemaTemplatePath, schemaFilePath)
+        fs!!.create(getSchemaFilePath()).use { outpustream ->
+            IOUtils.copyBytes(schemaTemplateResourceIntpustream(), outpustream, 4096, true)
+        };
     }
 
-    private fun schemaTemplatePath() = "./target/classes/whyat.avsc"
+    private fun schemaTemplateResourceIntpustream() = ClassPathResource("whyat.avsc").inputStream
 
     private fun getSchemaFilePath(): Path {
         return Path(hdfsPath + "/whyat.avsc")
     }
 
     private fun loadSchema(): Schema {
-        return Schema.Parser().parse(File(schemaTemplatePath()))
+        return Schema.Parser().parse(schemaTemplateResourceIntpustream())
     }
 
     @Synchronized
