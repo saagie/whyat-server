@@ -6,6 +6,12 @@
     "name" : "recordDate",
     "type" : "string"
   }, {
+     "name" : "area",
+     "type" : [ "null", "string" ]
+   }, {
+     "name" : "tenant",
+     "type" : "string"
+   },{
     "name" : "platformID",
     "type" : [ "null", "string" ]
   }, {
