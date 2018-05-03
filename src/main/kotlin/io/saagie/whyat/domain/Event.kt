@@ -21,6 +21,8 @@ import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
 data class Event(
+        val area: String?,
+        val tenant: String,
         val applicationID: String?,
         val platformID: String?,
         val browser: BrowserInformation,
@@ -32,11 +34,13 @@ data class Event(
         var payload: Payload) {
 
     fun toCSVHeader(): String {
-        return "applicationID,platformID,${browser.toCSVHeader()},${user.toCSVHeader()},type,timestamp,recordDate,uri,${payload.toCSVHeader()}\n"
+        return "area,tenant,applicationID,platformID,${browser.toCSVHeader()},${user.toCSVHeader()},type,timestamp," +
+                "recordDate,uri,${payload.toCSVHeader()}\n"
     }
 
     fun toCSV(): String {
-        return "$applicationID,$platformID,${browser.toCSV()},${user.toCSV()},$type,$timestamp,${recordDate.format(DateTimeFormatter.ISO_DATE_TIME)},${escape(uri)},${payload.toCSV()}\n"
+        return "$area,$tenant,$applicationID,$platformID,${browser.toCSV()},${user.toCSV()},$type,$timestamp," +
+                "${recordDate.format(DateTimeFormatter.ISO_DATE_TIME)},${escape(uri)},${payload.toCSV()}\n"
     }
 
     fun escape(original: String): String {
